@@ -2,7 +2,7 @@ package com.indix.bootcamp.crawler
 
 import edu.uci.ics.crawler4j.crawler.{Page, WebCrawler}
 import edu.uci.ics.crawler4j.parser.HtmlParseData
-import com.indix.bootcamp.parser.{Parser, FlipkartParser}
+import com.indix.bootcamp.parser.{SnapdealParser, JabongParser, Parser, FlipkartParser}
 import java.io.{PrintWriter, File}
 import scala.util.Random
 import edu.uci.ics.crawler4j.url.WebURL
@@ -19,7 +19,12 @@ abstract class BaseCrawler extends WebCrawler {
       An example is provided for reference.
    */
   def excludeFilters = List(
-    "(?i)(.*(\\.(pdf|flv))(\\?.*)*)$"
+    "(?i)(.*(\\.(pdf|flv))(\\?.*)*)$",
+    "(?i)(.*(\\.(css|js))(\\?.*)*)$",
+    "(?i)(.*(\\.(jpg|jpeg|gif|bmp|svg|png|tiff))(\\?.*)*)$",
+    "(?i)(.*(\\.(mp3|mp4|3gp|ra|rm|flac))(\\?.*)*)$",
+    "(?i)(.*(\\.(avi|mkv|vob|ogg|ogv|mov|wmv|rm|rmvb|mpg|mpeg))(\\?.*)*)$",
+    "(?i)(.*(\\.(zip|rar|7z|tar|gz|bz2))(\\?.*)*)$"
   )
 
   override def shouldVisit(url: WebURL): Boolean = {
@@ -46,3 +51,12 @@ abstract class BaseCrawler extends WebCrawler {
 class FlipkartCrawler extends BaseCrawler {
   override val parser: Parser = new FlipkartParser
 }
+
+class JabongCrawler extends BaseCrawler {
+  override val parser: Parser = new JabongParser
+}
+
+class SnapdealCrawler extends BaseCrawler {
+  override val parser: Parser = new SnapdealParser
+}
+

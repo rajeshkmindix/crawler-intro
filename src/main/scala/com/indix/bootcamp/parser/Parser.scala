@@ -17,4 +17,11 @@ trait Parser {
 
     Result(product, price)
   }
+
+  def getPrice(priceString: String): Double = {
+    val price = ".*?([,\\d]+(\\.\\d{1,2})?).*".r
+    priceString match {
+      case price(full, _) => full.replace(",", "").toDouble
+    }
+  }
 }
